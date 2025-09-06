@@ -14,6 +14,7 @@ set ( SOURCE_BLOOM
     src/main.cc
     src/color.cc
     src/vec3.cc
+    src/ray.cc
 )
 
 # executables

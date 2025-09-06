@@ -31,11 +31,13 @@ class vec3 {
 using point3 = vec3;
 
 std::ostream &operator<<(std::ostream &out, const vec3 &vector);
+
 vec3 operator+(const vec3 &u, const vec3 &v);
 vec3 operator-(const vec3 &u, const vec3 &v);
 vec3 operator*(const vec3 &u, const vec3 &v);
 vec3 operator*(double k, const vec3 &v);
 vec3 operator/(double k, const vec3 &v);
+
 double dot(const vec3 &u, const vec3 &v);
 vec3 cross(const vec3 &u, const vec3 &v);
 vec3 unit(const vec3 &v);
