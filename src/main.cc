@@ -3,9 +3,6 @@
 #include "vec3.h"
 
 #include <iostream>
-#include <string.h>
-
-color ray_color(const ray &r) { return color(0, 0, 0); }
 
 int main() {
     // Image
