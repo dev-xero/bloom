@@ -1,3 +1,6 @@
+#include "color.h"
+#include "vec3.h"
+
 #include <iostream>
 
 int main() {
@@ -11,17 +14,9 @@ int main() {
         std::clog << "\rScanlines remaining: " << (image_height - j) << ' ' << std::flush;
 
         for (int i = 0; i < image_width; i++) {
-            // red goes from fully off to on from left to right
-            // green goes from fully off to on from top to bottom
-            auto r = double(i) / (image_width - 1);
-            auto g = double(j) / (image_width - 1);
-            auto b = 0.0;
-
-            int ir = int(255.999 * r);
-            int ig = int(255.999 * g);
-            int ib = int(255.999 * b);
-
-            std::cout << ir << ' ' << ig << ' ' << ib << '\n';
+            // RGB square
+            auto pixel_color = color(double(i) / (image_width)-1, double(j) / (image_width)-1, 0.0);
+            write_color(std::cout, pixel_color);
         }
     }
 

@@ -16,4 +16,6 @@ set ( SOURCE_BLOOM
 
 # executables
 # add_executable(bloom ${EXTERNAL} ${SOURCE_BLOOM})
-add_executable(bloom ${SOURCE_BLOOM})
+add_executable( bloom ${SOURCE_BLOOM} )
+
+target_include_directories( bloom PRIVATE include )
