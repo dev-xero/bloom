@@ -12,6 +12,8 @@ set ( CMAKE_CXX_EXTENSIONS OFF )
 # this is where we specify source files and headers
 set ( SOURCE_BLOOM 
     src/main.cc
+    src/color.cc
+    src/vec3.cc
 )
 
 # executables
