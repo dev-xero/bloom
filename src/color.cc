@@ -24,8 +24,8 @@ color ray_color(const ray &r) {
     const color pink = color(1, 0.847, 0.929);
     const color violet = color(0.733, 0.772, 0.976);
 
-    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
     // Shade the region of the viewport that contains the sphere
+    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
     if (t > 0.0) {
         vec3 N = unit(r.at(t) - vec3(0, 0, -1));
         return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
