@@ -9,11 +9,19 @@
 // t^2d.d - 2td.(C-Q) + (C-Q).(C-Q) - r^2 = 0
 // this is a quadratic equation solvable through the discriminant formula
 // if D > 0, we have 2 real solutions
-bool hit_sphere(const point3 &center, double radius, const ray &r) {
+double hit_sphere(const point3 &center, double radius, const ray &r) {
     vec3 oc = center - r.origin();
     auto a = dot(r.direction(), r.direction());
     auto b = -2.0 * dot(r.direction(), oc);
     auto c = dot(oc, oc) - radius * radius;
     auto discriminant = b * b - 4 * a * c;
-    return (discriminant >= 0);
+
+    if (discriminant < 0) {
+        return -1.0;
+    } else {
+        // since the ray can hit the sphere at two points (entry and exit)
+        // we want the closer of the two given by:
+        // t1 = (-b - root(D)) / 2a
+        return (-b - std::sqrt(discriminant)) / (2.0 * a);
+    }
 }

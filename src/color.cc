@@ -21,19 +21,18 @@ void write_color(std::ostream &out, const color &pixel_color) {
 // Using linear interpolation (lerp) to blend colors
 // blendedValue = (1-a) * startValue + (a * endValue);
 color ray_color(const ray &r) {
-    if (hit_sphere(point3(0, 0, -1), 0.5, r)) {
-        return color(0.968, 0.494, 0.545);
-    }
-
-    // normalize the ray (-1, 1)
-    // and then peg values to [0, 1]
-    vec3 unit_direction = unit(r.direction());
-    auto a = 0.5 * (unit_direction.y() + 1.0);
-
-    // colors have to be normalized
-    // might write a helper function for this
     const color pink = color(1, 0.847, 0.929);
     const color violet = color(0.733, 0.772, 0.976);
 
+    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
+    // Shade the region of the viewport that contains the sphere
+    if (t > 0.0) {
+        vec3 N = unit(r.at(t) - vec3(0, 0, -1));
+        return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
+    }
+
+    // Lerp blend rest of viewport
+    vec3 unit_dir = unit(r.direction());
+    auto a = 0.5 * (unit_dir.y() + 1.0);
     return (1.0 - a) * violet + a * pink;
 }
