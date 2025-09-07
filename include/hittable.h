@@ -1,6 +1,9 @@
 #ifndef HITTABLE_H
 #define HITTABLE_H
 
+#include "ray.h"
+#include "vec3.h"
+
 class hit_record {
   public:
     point3 p;

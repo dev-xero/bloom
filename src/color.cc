@@ -1,6 +1,6 @@
 #include "color.h"
-#include "ray.h"
-#include "sphere.h"
+#include "common.h"
+#include "hittable.h"
 
 void write_color(std::ostream &out, const color &pixel_color) {
     auto r = pixel_color.x();
@@ -18,15 +18,13 @@ void write_color(std::ostream &out, const color &pixel_color) {
 
 // Using linear interpolation (lerp) to blend colors
 // blendedValue = (1-a) * startValue + (a * endValue);
-color ray_color(const ray &r) {
+color ray_color(const ray &r, const hittable &world) {
     const color pink = color(1, 0.847, 0.929);
     const color violet = color(0.733, 0.772, 0.976);
 
-    // Shade the region of the viewport that contains the sphere
-    auto t = hit_sphere(point3(0, 0, -1), 0.5, r);
-    if (t > 0.0) {
-        vec3 N = unit(r.at(t) - vec3(0, 0, -1));
-        return 0.5 * color(N.x() + 1, N.y() + 1, N.z() + 1);
+    hit_record rec;
+    if (world.hit(r, 0, infinity, rec)) {
+        return 0.5 * (rec.normal + color(1, 1, 1));
     }
 
     // Lerp blend rest of viewport

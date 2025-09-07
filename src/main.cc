@@ -1,8 +1,10 @@
-#include "utils.h"
-
+#include "color.h"
+#include "common.h"
 #include "hittable.h"
 #include "hittable_list.h"
+#include "ray.h"
 #include "sphere.h"
+#include "vec3.h"
 
 int main() {
     // Image
