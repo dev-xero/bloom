@@ -13,6 +13,7 @@ set ( CMAKE_CXX_EXTENSIONS OFF )
 set ( SOURCE_BLOOM 
     src/color.cc
     src/hittable.cc
+    src/hittable_list.cc
     src/main.cc
     src/ray.cc
     src/sphere.cc
