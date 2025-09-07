@@ -12,6 +12,7 @@ set ( CMAKE_CXX_EXTENSIONS OFF )
 # this is where we specify source files and headers
 set ( SOURCE_BLOOM 
     src/color.cc
+    src/hittable.cc
     src/main.cc
     src/ray.cc
     src/sphere.cc
