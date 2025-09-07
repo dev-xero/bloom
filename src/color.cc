@@ -19,13 +19,13 @@ void write_color(std::ostream &out, const color &pixel_color) {
 // Using linear interpolation (lerp) to blend colors
 // blendedValue = (1-a) * startValue + (a * endValue);
 color ray_color(const ray &r, const hittable &world) {
-    const color pink = color(1, 0.847, 0.929);
-    const color violet = color(0.733, 0.772, 0.976);
-
     hit_record rec;
-    if (world.hit(r, 0, infinity, rec)) {
+    if (world.hit(r, 0.001, infinity, rec)) {
         return 0.5 * (rec.normal + color(1, 1, 1));
     }
+
+    const color pink = color(1, 0.847, 0.929);
+    const color violet = color(0.733, 0.772, 0.976);
 
     // Lerp blend rest of viewport
     vec3 unit_dir = unit(r.direction());
