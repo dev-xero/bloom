@@ -14,6 +14,7 @@ set ( SOURCE_BLOOM
     src/color.cc
     src/hittable.cc
     src/hittable_list.cc
+    src/interval.cc
     src/main.cc
     src/ray.cc
     src/sphere.cc
