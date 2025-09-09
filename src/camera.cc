@@ -2,6 +2,9 @@
 #include "color.h"
 #include "hittable.h"
 
+// ==============================================================
+// Initialize
+// ==============================================================
 void camera::initialize() {
     image_h = int(image_w / aspect_ratio);
     image_h = (image_h < 1) ? 1 : image_h;
@@ -29,6 +32,12 @@ void camera::initialize() {
     pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
 }
 
+// ==============================================================
+// Ray Color
+// ==============================================================
+// Using linear interpolation (lerp) to blend colors
+// blendedValue = (1-a) * startValue + (a * endValue);
+// ==============================================================
 color camera::ray_color(const ray &r, const hittable &world) const {
     hit_record rec;
     if (world.hit(r, interval(0, infinity), rec)) {
@@ -44,6 +53,9 @@ color camera::ray_color(const ray &r, const hittable &world) const {
     return (1.0 - a) * violet + a * pink;
 }
 
+// ==============================================================
+// Render
+// ==============================================================
 void camera::render(const hittable &world) {
     camera::initialize();
 
@@ -55,12 +67,14 @@ void camera::render(const hittable &world) {
     // Write rays pixel by pixel
     for (int j = 0; j < image_h; j++) {
         std::clog << "\rScanlines remaining: " << (image_h - j) << ' ' << std::flush;
+
         for (int i = 0; i < image_w; i++) {
             auto pixel_center = pixel00_loc + (i * pixel_delta_u) + (j * pixel_delta_v);
             auto ray_direction = pixel_center - center;
-            ray r(center, ray_direction);
 
+            ray r(center, ray_direction);
             color pixel = ray_color(r, world);
+
             write_color(std::cout, pixel);
         }
     }
