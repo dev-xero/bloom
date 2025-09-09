@@ -11,6 +11,7 @@ set ( CMAKE_CXX_EXTENSIONS OFF )
 
 # this is where we specify source files and headers
 set ( SOURCE_BLOOM 
+    src/camera.cc
     src/color.cc
     src/hittable.cc
     src/hittable_list.cc
