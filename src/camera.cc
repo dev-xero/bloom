@@ -2,6 +2,7 @@
 #include "color.h"
 #include "common.h"
 #include "hittable.h"
+#include "vec3.h"
 
 // ==============================================================
 // Initialize
@@ -65,17 +66,19 @@ vec3 camera::sample_square() const {
 // ==============================================================
 color camera::ray_color(const ray &r, const hittable &world) const {
     hit_record rec;
+
     if (world.hit(r, interval(0, infinity), rec)) {
-        return 0.5 * (rec.normal + color(1, 1, 1));
+        vec3 direction = random_on_hemisphere(rec.normal);
+        return 0.5 * ray_color(ray(rec.p, direction), world);
     }
 
     vec3 unit_dir = unit(r.direction());
     auto a = 0.5 * (unit_dir.y() + 1.0);
 
-    const color pink = color(1, 0.847, 0.929);
-    const color violet = color(0.733, 0.772, 0.976);
+    const color light_blue = color(0.529, 0.808, 0.922);
+    const color deep_blue = color(0.118, 0.565, 0.898);
 
-    return (1.0 - a) * violet + a * pink;
+    return (1.0 - a) * deep_blue + a * light_blue;
 }
 
 // ==============================================================
