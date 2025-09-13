@@ -1,6 +1,8 @@
 #include "vec3.h"
+#include "common.h"
 
 #include <cmath>
+#include <cstdlib>
 #include <iostream>
 
 // Negate vector
@@ -31,6 +33,12 @@ double vec3::length() const { return std::sqrt(length_squared()); }
 // Computes the sum of squares of the components
 double vec3::length_squared() const {
     return elements[0] * elements[0] + elements[1] * elements[1] + elements[2] * elements[2];
+}
+
+vec3 vec3::random() { return vec3(random_double(), random_double(), random_double()); }
+
+vec3 vec3::random(double min, double max) {
+    return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
 }
 
 // ==================================================================

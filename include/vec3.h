@@ -26,6 +26,9 @@ class vec3 {
 
     double length() const;
     double length_squared() const;
+
+    static vec3 random();
+    static vec3 random(double min, double max);
 };
 
 using point3 = vec3;
