@@ -46,4 +46,7 @@ double dot(const vec3 &u, const vec3 &v);
 vec3 cross(const vec3 &u, const vec3 &v);
 vec3 unit(const vec3 &v);
 
+vec3 random_unit_vector();
+vec3 random_on_hemisphere(const vec3 &normal);
+
 #endif

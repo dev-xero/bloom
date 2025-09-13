@@ -97,3 +97,30 @@ vec3 cross(const vec3 &v, const vec3 &u) {
 
 // Mathematically accurate unit vector
 vec3 unit(const vec3 &v) { return v / v.length(); }
+
+vec3 random_unit_vector() {
+    // We want to generate a vector that falls within
+    // the unit sphere, then normalize it
+    while (true) {
+        auto p = vec3::random(-1, 1);
+        auto len_squared = p.length_squared();
+        // need to account for really small values
+        // of len_sq to avoid underflowing to zero
+        if (1e-160 < len_squared && len_squared <= 1)
+            return p / sqrt(len_squared);
+    }
+}
+
+vec3 random_on_hemisphere(const vec3 &normal) {
+    vec3 on_unit_sphere = random_unit_vector();
+    // the dot product tells us how much two vectors
+    // point in the same direction
+    if (dot(on_unit_sphere, normal) > 0.0) {
+        return on_unit_sphere;
+    } else {
+        // reversing direction since this way
+        // we're bound to point in the direction
+        // of the surface normal
+        return -on_unit_sphere;
+    }
+}
