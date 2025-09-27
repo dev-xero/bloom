@@ -10,12 +10,12 @@ int main() {
     world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5));
     world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
 
-    camera cam;
+    Camera cam;
 
-    cam.aspect_ratio = 16.0 / 9.0;
-    cam.samples_per_pixel = 100;
-    cam.image_w = 640;
-    cam.max_depth = 50;
+    cam.aspect_ratio_ = 16.0 / 9.0;
+    cam.samples_per_pixel_ = 100;
+    cam.image_w_ = 640;
+    cam.max_depth_ = 50;
 
-    cam.render(world);
+    cam.Render(world);
 }

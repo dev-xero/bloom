@@ -4,67 +4,49 @@
 #include "hittable.hpp"
 #include "vec3.hpp"
 
-// ==============================================================
-// Initialize
-// ==============================================================
-void camera::initialize() {
-    image_h = int(image_w / aspect_ratio);
-    image_h = (image_h < 1) ? 1 : image_h;
+void Camera::Initialize() {
+    image_h_ = int(image_w_ / aspect_ratio_);
+    image_h_ = (image_h_ < 1) ? 1 : image_h_;
 
-    pixel_samples_scale = 1.0 / samples_per_pixel;
+    pixel_samples_scale_ = 1.0 / samples_per_pixel_;
+    center_ = point3(0, 0, 0);
 
-    center = point3(0, 0, 0);
-
-    // Determine viewport dimensions
     auto focal_length = 1.0;
     auto viewport_h = 2.0;
-    auto viewport_w = viewport_h * (double(image_w) / image_h);
+    auto viewport_w = viewport_h * (double(Camera::image_w_) / Camera::image_h_);
 
-    // Calculate the vectors across the horizontal
-    // and down the vertical
-    auto viewport_u = vec3(viewport_w, 0, 0);
+    // Calculate the vectors across the horizontal and down the vertical
     // Negative since due to RHS coordinate system
+    auto viewport_u = vec3(viewport_w, 0, 0);
     auto viewport_v = vec3(0, -viewport_h, 0);
 
-    // Calculate the horizontal and vertical deltas
-    pixel_delta_u = viewport_u / image_w;
-    pixel_delta_v = viewport_v / image_h;
+    pixel_delta_u_ = viewport_u / Camera::image_w_;
+    pixel_delta_v_ = viewport_v / Camera::image_h_;
 
-    // Calculate the location of the upper left pixel
     vec3 P = vec3(0, 0, focal_length);
-    auto viewport_upper_left = center - P - (viewport_u / 2) - (viewport_v / 2);
-    pixel00_loc = viewport_upper_left + 0.5 * (pixel_delta_u + pixel_delta_v);
+    auto viewport_upper_left = Camera::center_ - P - (viewport_u / 2) - (viewport_v / 2);
+    pixel00_loc_ = viewport_upper_left + 0.5 * (Camera::pixel_delta_u_ + Camera::pixel_delta_v_);
 }
 
-// ==============================================================
-// Get Ray
-// ==============================================================
-ray camera::get_ray(int i, int j) const {
-    auto offset = sample_square();
-    auto pixel_sample =
-        pixel00_loc + ((i + offset.x()) * pixel_delta_u) + ((j + offset.y()) * pixel_delta_v);
-    auto ray_origin = center;
+vec3 Camera::SampleSquare() const {
+    // Returns a vector to a random point in the square [-0.5, 0.5) x [-0.5, 0.5) x 0
+    return vec3(random_double() - 0.5, random_double() - 0.5, 0);
+}
+
+ray Camera::GetRay(int i, int j) const {
+    auto offset = SampleSquare();
+    auto xComponent = (i + offset.x()) * Camera::pixel_delta_u_;
+    auto yComponent = (j + offset.y()) * Camera::pixel_delta_v_;
+    auto pixel_sample = Camera::pixel00_loc_ + xComponent + yComponent;
+    auto ray_origin = Camera::center_;
     auto ray_direction = pixel_sample - ray_origin;
 
     return ray(ray_origin, ray_direction);
 }
 
-// ==============================================================
-// Sample Square
-// ==============================================================
-vec3 camera::sample_square() const {
-    // Returns the vector to a random point in the [-.5,-.5]-[+.5,+.5]
-    // unit square
-    return vec3(random_double() - 0.5, random_double() - 0.5, 0);
-}
-
-// ==============================================================
-// Ray Color
-// ==============================================================
-// Using linear interpolation (lerp) to blend colors
-// blendedValue = (1-a) * startValue + (a * endValue);
-// ==============================================================
-color camera::ray_color(const ray &r, int depth, const Hittable &world) const {
+color Camera::RayColor(const ray &r, int depth, const Hittable &world) const {
+    // Using linear interpolation (lerp) to blend colors
+    // blendedValue = (1-a) * startValue + (a * endValue);
     if (depth <= 0) {
         return color(0, 0, 0);
     }
@@ -73,38 +55,37 @@ color camera::ray_color(const ray &r, int depth, const Hittable &world) const {
 
     if (world.Hit(r, interval(0.001, infinity), rec)) {
         vec3 direction = rec.normal_ + random_unit_vector();
-        return 0.5 * ray_color(ray(rec.p_, direction), depth - 1, world);
+        return 0.5 * RayColor(ray(rec.p_, direction), depth - 1, world);
     }
 
     vec3 unit_dir = unit(r.direction());
     auto a = 0.5 * (unit_dir.y() + 1.0);
 
+    // Skybox
     const color light_blue = color(0.529, 0.808, 0.922);
     const color deep_blue = color(0.118, 0.565, 0.898);
 
     return (1.0 - a) * deep_blue + a * light_blue;
 }
 
-// ==============================================================
-// Render
-// ==============================================================
-void camera::render(const Hittable &world) {
-    camera::initialize();
+void Camera::Render(const Hittable &world) {
+    Camera::Initialize();
 
     std::clog << "Rendering begun." << "\n";
 
-    std::cout << "P3\n" << image_w << " " << image_h << "\n255\n";
+    std::cout << "P3\n" << Camera::image_w_ << " " << Camera::image_h_ << "\n255\n";
+    for (int j = 0; j < Camera::image_h_; j++) {
+        std::clog << "\rScanlines remaining: " << (Camera::image_h_ - j) << ' ' << std::flush;
 
-    for (int j = 0; j < image_h; j++) {
-        std::clog << "\rScanlines remaining: " << (image_h - j) << ' ' << std::flush;
-        for (int i = 0; i < image_w; i++) {
+        for (int i = 0; i < Camera::image_w_; i++) {
             color pixel(0, 0, 0);
-            // sampled rendering
-            for (int sample = 0; sample < samples_per_pixel; sample++) {
-                ray r = get_ray(i, j);
-                pixel += ray_color(r, max_depth, world);
+
+            for (int sample = 0; sample < Camera::samples_per_pixel_; sample++) {
+                ray r = Camera::GetRay(i, j);
+                pixel += RayColor(r, Camera::max_depth_, world);
             }
-            write_color(std::cout, pixel_samples_scale * pixel);
+
+            write_color(std::cout, Camera::pixel_samples_scale_ * pixel);
         }
     }
 
