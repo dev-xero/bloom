@@ -1,9 +1,9 @@
-#ifndef HITTABLE_LIST_H
-#define HITTABLE_LIST_H
+#ifndef HITTABLE_LIST_HPP
+#define HITTABLE_LIST_HPP
 
-#include "common.h"
-#include "hittable.h"
-#include "interval.h"
+#include "common.hpp"
+#include "hittable.hpp"
+#include "interval.hpp"
 #include <vector>
 
 class hittable_list : public hittable {

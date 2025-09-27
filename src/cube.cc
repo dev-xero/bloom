@@ -1,6 +1,5 @@
-#include "cube.h"
-#include "hittable.h"
-#include "interval.h"
+#include "hittable.hpp"
+#include "interval.hpp"
 #include <utility>
 
 #include <bits/stdc++.h>

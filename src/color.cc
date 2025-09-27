@@ -1,4 +1,4 @@
-#include "color.h"
+#include "color.hpp"
 
 double linear_to_gamma(double linear_component) {
     if (linear_component > 0) {

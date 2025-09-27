@@ -1,9 +1,9 @@
-#ifndef CAMERA_H
-#define CAMERA_H
+#ifndef CAMERA_HPP
+#define CAMERA_HPP
 
-#include "color.h"
-#include "hittable.h"
-#include "vec3.h"
+#include "color.hpp"
+#include "hittable.hpp"
+#include "vec3.hpp"
 
 class camera {
   public:

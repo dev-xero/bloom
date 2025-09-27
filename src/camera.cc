@@ -1,8 +1,8 @@
-#include "camera.h"
-#include "color.h"
-#include "common.h"
-#include "hittable.h"
-#include "vec3.h"
+#include "camera.hpp"
+#include "color.hpp"
+#include "common.hpp"
+#include "hittable.hpp"
+#include "vec3.hpp"
 
 // ==============================================================
 // Initialize

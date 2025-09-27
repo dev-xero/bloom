@@ -1,10 +1,10 @@
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef SPHERE_HPP
+#define SPHERE_HPP
 
-#include "hittable.h"
-#include "interval.h"
-#include "ray.h"
-#include "vec3.h"
+#include "hittable.hpp"
+#include "interval.hpp"
+#include "ray.hpp"
+#include "vec3.hpp"
 
 class sphere : public hittable {
   public:

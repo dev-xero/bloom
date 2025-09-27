@@ -1,4 +1,4 @@
-#include "sphere.h"
+#include "sphere.hpp"
 
 // Using vector algebra and formula of a sphere, determine whether a ray hits the sphere
 //

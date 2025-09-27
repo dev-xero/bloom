@@ -1,5 +1,5 @@
-#include "vec3.h"
-#include "common.h"
+#include "vec3.hpp"
+#include "common.hpp"
 
 #include <cmath>
 #include <cstdlib>

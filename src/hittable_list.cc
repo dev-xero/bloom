@@ -1,4 +1,4 @@
-#include "hittable_list.h"
+#include "hittable_list.hpp"
 
 bool hittable_list::hit(const ray &r, interval ray_t, hit_record &rec) const {
     hit_record temp_rec;

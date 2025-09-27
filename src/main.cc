@@ -1,8 +1,8 @@
-#include "camera.h"
-#include "common.h"
-#include "hittable_list.h"
-#include "sphere.h"
-#include "vec3.h"
+#include "camera.hpp"
+#include "common.hpp"
+#include "hittable_list.hpp"
+#include "sphere.hpp"
+#include "vec3.hpp"
 
 int main() {
     hittable_list world;

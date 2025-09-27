@@ -1,5 +1,5 @@
-#include "interval.h"
-#include "common.h"
+#include "interval.hpp"
+#include "common.hpp"
 
 double interval::size() const { return max - min; }
 double interval::clamp(double x) const {

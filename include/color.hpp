@@ -1,9 +1,9 @@
-#ifndef COLOR_H
-#define COLOR_H
+#ifndef COLOR_HPP
+#define COLOR_HPP
 
-#include "hittable.h"
-#include "ray.h"
-#include "vec3.h"
+#include "hittable.hpp"
+#include "ray.hpp"
+#include "vec3.hpp"
 
 #include <iostream>
 
