@@ -24,11 +24,12 @@ class Vec3 {
     Vec3 &operator*=(double k);
     Vec3 &operator/=(double k);
 
-    double length() const;
-    double length_squared() const;
+    double Length() const;
+    double LengthSquared() const;
+    bool NearZero() const;
 
-    static Vec3 random();
-    static Vec3 random(double min, double max);
+    static Vec3 Random();
+    static Vec3 Random(double min, double max);
 };
 
 using Point3 = Vec3;

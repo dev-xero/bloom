@@ -30,7 +30,7 @@ void Camera::Initialize() {
 
 Vec3 Camera::SampleSquare() const {
     // Returns a vector to a random point in the square [-0.5, 0.5) x [-0.5, 0.5) x 0
-    return Vec3(random_double() - 0.5, random_double() - 0.5, 0);
+    return Vec3(RandomDouble() - 0.5, RandomDouble() - 0.5, 0);
 }
 
 Ray Camera::GetRay(int i, int j) const {

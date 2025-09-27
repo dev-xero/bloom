@@ -25,9 +25,9 @@ bool Sphere::Hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
 
     Vec3 oc = Sphere::center_ - r.Origin();
 
-    auto a = r.Direction().length_squared();
+    auto a = r.Direction().LengthSquared();
     auto h = Dot(r.Direction(), oc);
-    auto c = oc.length_squared() - Sphere::radius_ * Sphere::radius_;
+    auto c = oc.LengthSquared() - Sphere::radius_ * Sphere::radius_;
 
     auto discriminant = h * h - a * c;
     if (discriminant < 0) {

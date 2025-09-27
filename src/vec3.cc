@@ -5,10 +5,8 @@
 #include <cstdlib>
 #include <iostream>
 
-// Negate vector
 Vec3 Vec3::operator-() const { return Vec3(-elements[0], -elements[1], -elements[2]); }
 
-// Add vectors uniformly
 Vec3 &Vec3::operator+=(const Vec3 &vector) {
     elements[0] += vector.elements[0];
     elements[1] += vector.elements[1];
@@ -16,7 +14,6 @@ Vec3 &Vec3::operator+=(const Vec3 &vector) {
     return *this;
 }
 
-// Scale uniformly
 Vec3 &Vec3::operator*=(double k) {
     elements[0] *= k;
     elements[1] *= k;
@@ -24,25 +21,31 @@ Vec3 &Vec3::operator*=(double k) {
     return *this;
 }
 
-// Scale by 1/k, uniformly
 Vec3 &Vec3::operator/=(double k) { return *this *= 1 / k; }
 
-// Length is given by square root of components squared
-double Vec3::length() const { return std::sqrt(length_squared()); }
+double Vec3::Length() const { return std::sqrt(LengthSquared()); }
 
-// Computes the sum of squares of the components
-double Vec3::length_squared() const {
+double Vec3::LengthSquared() const {
     return elements[0] * elements[0] + elements[1] * elements[1] + elements[2] * elements[2];
 }
 
-Vec3 Vec3::random() { return Vec3(random_double(), random_double(), random_double()); }
+bool Vec3::NearZero() const {
+    const double kTHRESHOLD = 1e-8;
+    return (std::fabs(Vec3::elements[0]) < kTHRESHOLD) &&
+           (std::fabs(Vec3::elements[1]) < kTHRESHOLD) &&
+           (std::fabs(Vec3::elements[2]) < kTHRESHOLD);
+}
 
-Vec3 Vec3::random(double min, double max) {
-    return Vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+Vec3 Vec3::Random() { return Vec3(RandomDouble(), RandomDouble(), RandomDouble()); }
+
+Vec3 Vec3::Random(double min, double max) {
+    return Vec3(RandomDouble(min, max), RandomDouble(min, max), RandomDouble(min, max));
 }
 
 // ==================================================================
+//
 // VECTOR UTILITY FUNCTIONS
+//
 // ==================================================================
 
 // Need a way to print vector information
@@ -91,14 +94,14 @@ Vec3 Cross(const Vec3 &v, const Vec3 &u) {
 }
 
 // Mathematically accurate unit vector
-Vec3 Unit(const Vec3 &v) { return v / v.length(); }
+Vec3 Unit(const Vec3 &v) { return v / v.Length(); }
 
 Vec3 RandomUnitVector() {
     // We want to generate a vector that falls within
     // the unit sphere, then normalize it
     while (true) {
-        auto p = Vec3::random(-1, 1);
-        auto len_squared = p.length_squared();
+        auto p = Vec3::Random(-1, 1);
+        auto len_squared = p.LengthSquared();
         // need to account for really small values
         // of len_sq to avoid underflowing to zero
         if (1e-160 < len_squared && len_squared <= 1)
