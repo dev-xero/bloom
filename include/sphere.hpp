@@ -6,15 +6,18 @@
 #include "ray.hpp"
 #include "vec3.hpp"
 
-class sphere : public hittable {
+class Sphere : public Hittable {
   public:
-    sphere(const point3 &center, double radius) : center(center), radius(std::fmax(0, radius)) {}
+    Sphere(const point3 &center, double radius) : center_(center), radius_(std::fmax(0, radius)) {
+        // TODO: Initialize the material pointer `mat_`
+    }
 
-    bool hit(const ray &r, interval ray_t, hit_record &rec) const override;
+    bool Hit(const ray &r, interval ray_t, HitRecord &rec) const override;
 
   private:
-    const point3 center;
-    double radius;
+    point3 center_;
+    double radius_;
+    shared_ptr<Material> mat_;
 };
 
 #endif

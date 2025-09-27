@@ -64,16 +64,16 @@ vec3 camera::sample_square() const {
 // Using linear interpolation (lerp) to blend colors
 // blendedValue = (1-a) * startValue + (a * endValue);
 // ==============================================================
-color camera::ray_color(const ray &r, int depth, const hittable &world) const {
+color camera::ray_color(const ray &r, int depth, const Hittable &world) const {
     if (depth <= 0) {
         return color(0, 0, 0);
     }
 
-    hit_record rec;
+    HitRecord rec;
 
-    if (world.hit(r, interval(0.001, infinity), rec)) {
-        vec3 direction = rec.normal + random_unit_vector();
-        return 0.5 * ray_color(ray(rec.p, direction), depth - 1, world);
+    if (world.Hit(r, interval(0.001, infinity), rec)) {
+        vec3 direction = rec.normal_ + random_unit_vector();
+        return 0.5 * ray_color(ray(rec.p_, direction), depth - 1, world);
     }
 
     vec3 unit_dir = unit(r.direction());
@@ -88,7 +88,7 @@ color camera::ray_color(const ray &r, int depth, const hittable &world) const {
 // ==============================================================
 // Render
 // ==============================================================
-void camera::render(const hittable &world) {
+void camera::render(const Hittable &world) {
     camera::initialize();
 
     std::clog << "Rendering begun." << "\n";

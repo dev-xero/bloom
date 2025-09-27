@@ -12,7 +12,7 @@ class camera {
     int samples_per_pixel = 10;
     int max_depth = 10;
 
-    void render(const hittable &world);
+    void render(const Hittable &world);
 
   private:
     int image_h;
@@ -25,7 +25,7 @@ class camera {
     void initialize();
     ray get_ray(int i, int j) const;
     vec3 sample_square() const;
-    color ray_color(const ray &r, int depth, const hittable &world) const;
+    color ray_color(const ray &r, int depth, const Hittable &world) const;
 };
 
 #endif

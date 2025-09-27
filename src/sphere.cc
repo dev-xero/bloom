@@ -11,7 +11,7 @@
 //
 // this is a quadratic equation solvable through the discriminant formula
 // if D > 0, we have 2 real solutions
-bool sphere::hit(const ray &r, interval ray_t, hit_record &rec) const {
+bool Sphere::Hit(const ray &r, interval ray_t, HitRecord &rec) const {
     // Optimization:
     // Recall that a vector dotted with itself is equal to the squared
     // length of that vector, secondly setting b = -2h, we get:
@@ -20,10 +20,10 @@ bool sphere::hit(const ray &r, interval ray_t, hit_record &rec) const {
     // h + root(h^2 - ac) / a
     // b = -2d.(C-Q), and b = -2h, hence:
     // h = b/-2 = d.(C-Q)
-    vec3 oc = center - r.origin();
+    vec3 oc = center_ - r.origin();
     auto a = r.direction().length_squared();
     auto h = dot(r.direction(), oc);
-    auto c = oc.length_squared() - radius * radius;
+    auto c = oc.length_squared() - radius_ * radius_;
 
     auto discriminant = h * h - a * c;
     if (discriminant < 0) {
@@ -41,11 +41,11 @@ bool sphere::hit(const ray &r, interval ray_t, hit_record &rec) const {
         }
     }
 
-    rec.t = root;
-    rec.p = r.at(rec.t);
+    rec.t_ = root;
+    rec.p_ = r.at(rec.t_);
 
-    vec3 outward_normal = (rec.p - center) / radius;
-    rec.set_face_normal(r, outward_normal);
+    vec3 outward_normal = (rec.p_ - center_) / radius_;
+    rec.SetFaceNormal(r, outward_normal);
 
     return true;
 }
