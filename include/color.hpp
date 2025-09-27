@@ -7,10 +7,16 @@
 
 #include <iostream>
 
-using color = vec3;
+using Color = Vec3;
 
-void write_color(std::ostream &out, const color &pixel_color);
-double linear_to_gamma(double linear_component);
-color ray_color(const ray &r, const Hittable &world);
+namespace color {
+
+void WriteColor(std::ostream &out, const Color &pixel_color);
+
+double LinearToGamma(double linear_component);
+
+Color RayColor(const Ray &r, const Hittable &world);
+
+} // namespace color
 
 #endif

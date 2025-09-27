@@ -1,16 +1,19 @@
 #include "interval.hpp"
 #include "common.hpp"
 
-double interval::size() const { return max - min; }
-double interval::clamp(double x) const {
-    if (x < min)
-        return min;
-    if (x > max)
-        return max;
+double Interval::Size() const { return max_ - min_; }
+
+double Interval::Clamp(double x) const {
+    if (x < min_)
+        return min_;
+    if (x > max_)
+        return max_;
     return x;
 }
-bool interval::contains(double x) const { return min <= x && x <= max; }
-bool interval::surrounds(double x) const { return min < x && x < max; }
 
-const interval interval::empty = interval(+infinity, -infinity);
-const interval interval::universe = interval(-infinity, +infinity);
+bool Interval::Contains(double x) const { return min_ <= x && x <= max_; }
+
+bool Interval::Surrounds(double x) const { return min_ < x && x < max_; }
+
+const Interval Interval::empty = Interval(+infinity, -infinity);
+const Interval Interval::universe = Interval(-infinity, +infinity);

@@ -9,7 +9,7 @@ void Camera::Initialize() {
     image_h_ = (image_h_ < 1) ? 1 : image_h_;
 
     pixel_samples_scale_ = 1.0 / samples_per_pixel_;
-    center_ = point3(0, 0, 0);
+    center_ = Point3(0, 0, 0);
 
     auto focal_length = 1.0;
     auto viewport_h = 2.0;
@@ -17,23 +17,23 @@ void Camera::Initialize() {
 
     // Calculate the vectors across the horizontal and down the vertical
     // Negative since due to RHS coordinate system
-    auto viewport_u = vec3(viewport_w, 0, 0);
-    auto viewport_v = vec3(0, -viewport_h, 0);
+    auto viewport_u = Vec3(viewport_w, 0, 0);
+    auto viewport_v = Vec3(0, -viewport_h, 0);
 
     pixel_delta_u_ = viewport_u / Camera::image_w_;
     pixel_delta_v_ = viewport_v / Camera::image_h_;
 
-    vec3 P = vec3(0, 0, focal_length);
+    Vec3 P = Vec3(0, 0, focal_length);
     auto viewport_upper_left = Camera::center_ - P - (viewport_u / 2) - (viewport_v / 2);
     pixel00_loc_ = viewport_upper_left + 0.5 * (Camera::pixel_delta_u_ + Camera::pixel_delta_v_);
 }
 
-vec3 Camera::SampleSquare() const {
+Vec3 Camera::SampleSquare() const {
     // Returns a vector to a random point in the square [-0.5, 0.5) x [-0.5, 0.5) x 0
-    return vec3(random_double() - 0.5, random_double() - 0.5, 0);
+    return Vec3(random_double() - 0.5, random_double() - 0.5, 0);
 }
 
-ray Camera::GetRay(int i, int j) const {
+Ray Camera::GetRay(int i, int j) const {
     auto offset = SampleSquare();
     auto xComponent = (i + offset.x()) * Camera::pixel_delta_u_;
     auto yComponent = (j + offset.y()) * Camera::pixel_delta_v_;
@@ -41,29 +41,29 @@ ray Camera::GetRay(int i, int j) const {
     auto ray_origin = Camera::center_;
     auto ray_direction = pixel_sample - ray_origin;
 
-    return ray(ray_origin, ray_direction);
+    return Ray(ray_origin, ray_direction);
 }
 
-color Camera::RayColor(const ray &r, int depth, const Hittable &world) const {
+Color Camera::RayColor(const Ray &r, int depth, const Hittable &world) const {
     // Using linear interpolation (lerp) to blend colors
     // blendedValue = (1-a) * startValue + (a * endValue);
     if (depth <= 0) {
-        return color(0, 0, 0);
+        return Color(0, 0, 0);
     }
 
     HitRecord rec;
 
-    if (world.Hit(r, interval(0.001, infinity), rec)) {
-        vec3 direction = rec.normal_ + random_unit_vector();
-        return 0.5 * RayColor(ray(rec.p_, direction), depth - 1, world);
+    if (world.Hit(r, Interval(0.001, infinity), rec)) {
+        Vec3 direction = rec.normal_ + RandomUnitVector();
+        return 0.5 * RayColor(Ray(rec.p_, direction), depth - 1, world);
     }
 
-    vec3 unit_dir = unit(r.direction());
+    Vec3 unit_dir = Unit(r.Direction());
     auto a = 0.5 * (unit_dir.y() + 1.0);
 
     // Skybox
-    const color light_blue = color(0.529, 0.808, 0.922);
-    const color deep_blue = color(0.118, 0.565, 0.898);
+    const Color light_blue = Color(0.529, 0.808, 0.922);
+    const Color deep_blue = Color(0.118, 0.565, 0.898);
 
     return (1.0 - a) * deep_blue + a * light_blue;
 }
@@ -78,14 +78,12 @@ void Camera::Render(const Hittable &world) {
         std::clog << "\rScanlines remaining: " << (Camera::image_h_ - j) << ' ' << std::flush;
 
         for (int i = 0; i < Camera::image_w_; i++) {
-            color pixel(0, 0, 0);
-
+            Color pixel(0, 0, 0);
             for (int sample = 0; sample < Camera::samples_per_pixel_; sample++) {
-                ray r = Camera::GetRay(i, j);
+                Ray r = Camera::GetRay(i, j);
                 pixel += RayColor(r, Camera::max_depth_, world);
             }
-
-            write_color(std::cout, Camera::pixel_samples_scale_ * pixel);
+            color::WriteColor(std::cout, Camera::pixel_samples_scale_ * pixel);
         }
     }
 

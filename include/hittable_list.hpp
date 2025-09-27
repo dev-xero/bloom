@@ -6,17 +6,17 @@
 #include "interval.hpp"
 #include <vector>
 
-class hittable_list : public Hittable {
+class Hittable_list : public Hittable {
   public:
-    std::vector<shared_ptr<Hittable>> objects;
+    std::vector<shared_ptr<Hittable>> objects_;
 
-    hittable_list() {}
-    hittable_list(shared_ptr<Hittable> object) { add(object); }
+    Hittable_list() {}
+    Hittable_list(shared_ptr<Hittable> object) { Add(object); }
 
-    void clear() { objects.clear(); }
-    void add(shared_ptr<Hittable> object) { objects.push_back(object); }
+    void Clear() { objects_.clear(); }
+    void Add(shared_ptr<Hittable> object) { objects_.push_back(object); }
 
-    bool Hit(const ray &r, interval ray_t, HitRecord &rec) const override;
+    bool Hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 };
 
 #endif

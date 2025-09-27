@@ -9,19 +9,19 @@ class Material;
 
 class HitRecord {
   public:
-    point3 p_;
-    vec3 normal_;
+    Point3 p_;
+    Vec3 normal_;
     shared_ptr<Material> mat_;
     double t_;
     bool front_face_;
 
-    void SetFaceNormal(const ray &r, const vec3 &outward_normal);
+    void SetFaceNormal(const Ray &r, const Vec3 &outward_normal);
 };
 
 class Hittable {
   public:
     virtual ~Hittable() = default;
-    virtual bool Hit(const ray &r, interval ray_t, HitRecord &rec) const = 0;
+    virtual bool Hit(const Ray &r, Interval ray_t, HitRecord &rec) const = 0;
 };
 
 #endif

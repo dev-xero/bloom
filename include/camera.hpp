@@ -17,15 +17,15 @@ class Camera {
   private:
     int image_h_;
     double pixel_samples_scale_;
-    point3 center_;
-    point3 pixel00_loc_;
-    vec3 pixel_delta_u_;
-    vec3 pixel_delta_v_;
+    Point3 center_;
+    Point3 pixel00_loc_;
+    Vec3 pixel_delta_u_;
+    Vec3 pixel_delta_v_;
 
     void Initialize();
-    vec3 SampleSquare() const;
-    ray GetRay(int i, int j) const;
-    color RayColor(const ray &r, int depth, const Hittable &world) const;
+    Vec3 SampleSquare() const;
+    Ray GetRay(int i, int j) const;
+    Color RayColor(const Ray &r, int depth, const Hittable &world) const;
 };
 
 #endif

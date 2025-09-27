@@ -8,8 +8,8 @@ class Material {
   public:
     virtual ~Material() = default;
 
-    virtual bool Scatter(const ray &ray_in, const HitRecord &record, color &attenuation,
-                         ray &scattered) const {
+    virtual bool Scatter(const Ray &ray_in, const HitRecord &record, Color &attenuation,
+                         Ray &scattered) const {
         return false;
     }
 };

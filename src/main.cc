@@ -5,10 +5,10 @@
 #include "vec3.hpp"
 
 int main() {
-    hittable_list world;
+    Hittable_list world;
 
-    world.add(make_shared<Sphere>(point3(0, 0, -1), 0.5));
-    world.add(make_shared<Sphere>(point3(0, -100.5, -1), 100));
+    world.Add(make_shared<Sphere>(Point3(0, 0, -1), 0.5));
+    world.Add(make_shared<Sphere>(Point3(0, -100.5, -1), 100));
 
     Camera cam;
 

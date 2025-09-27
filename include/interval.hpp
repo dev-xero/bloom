@@ -3,21 +3,21 @@
 
 #include "common.hpp"
 
-class interval {
+class Interval {
   public:
-    double min, max;
+    double min_, max_;
 
     // for an empty interval min > max, which is mathematically
     // impossible
-    interval() : min(+infinity), max(-infinity) {}
-    interval(double min, double max) : min(min), max(max) {}
+    Interval() : min_(+infinity), max_(-infinity) {}
+    Interval(double min, double max) : min_(min), max_(max) {}
 
-    double size() const;
-    double clamp(double x) const;
-    bool contains(double x) const;
-    bool surrounds(double x) const;
+    double Size() const;
+    double Clamp(double x) const;
+    bool Contains(double x) const;
+    bool Surrounds(double x) const;
 
-    static const interval empty, universe;
+    static const Interval empty, universe;
 };
 
 #endif
