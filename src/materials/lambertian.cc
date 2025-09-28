@@ -8,6 +8,6 @@ bool Lambertian::Scatter(const Ray &ray_in, const HitRecord &rec, Color &atten, 
         scatter_direction = rec.normal_;
     }
 
-    atten = albedo_;
+    atten = Lambertian::albedo_;
     return true;
 }
