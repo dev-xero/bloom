@@ -2,6 +2,7 @@
 #include "color.hpp"
 #include "common.hpp"
 #include "hittable.hpp"
+#include "material.hpp"
 #include "vec3.hpp"
 
 void Camera::Initialize() {
@@ -45,8 +46,7 @@ Ray Camera::GetRay(int i, int j) const {
 }
 
 Color Camera::RayColor(const Ray &r, int depth, const Hittable &world) const {
-    // Using linear interpolation (lerp) to blend colors
-    // blendedValue = (1-a) * startValue + (a * endValue);
+    // If we've exceeded tthe ray bounce limit, no more light is gathered.
     if (depth <= 0) {
         return Color(0, 0, 0);
     }
@@ -54,14 +54,20 @@ Color Camera::RayColor(const Ray &r, int depth, const Hittable &world) const {
     HitRecord rec;
 
     if (world.Hit(r, Interval(0.001, infinity), rec)) {
-        Vec3 direction = rec.normal_ + RandomUnitVector();
-        return 0.5 * RayColor(Ray(rec.p_, direction), depth - 1, world);
+        Ray scattered;
+        Color attenuation;
+        if (rec.mat_->Scatter(r, rec, attenuation, scattered)) {
+            return attenuation * RayColor(scattered, depth - 1, world);
+        }
+        return Color(0, 0, 0);
     }
 
     Vec3 unit_dir = Unit(r.Direction());
     auto a = 0.5 * (unit_dir.y() + 1.0);
 
     // Skybox
+    // Using linear interpolation (lerp) to blend colors
+    // blendedValue = (1-a) * startValue + (a * endValue);
     const Color light_blue = Color(0.529, 0.808, 0.922);
     const Color deep_blue = Color(0.118, 0.565, 0.898);
 

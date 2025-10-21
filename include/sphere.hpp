@@ -8,9 +8,8 @@
 
 class Sphere : public Hittable {
   public:
-    Sphere(const Point3 &center, double radius) : center_(center), radius_(std::fmax(0, radius)) {
-        // TODO: Initialize the material pointer `mat_`
-    }
+    Sphere(const Point3 &center, double radius, shared_ptr<Material> mat)
+        : center_(center), radius_(std::fmax(0, radius)), mat_(mat) {}
 
     bool Hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
