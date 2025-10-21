@@ -12,6 +12,7 @@ set ( CMAKE_CXX_EXTENSIONS OFF )
 # this is where we specify source files and headers
 set ( SOURCE_BLOOM 
     src/materials/lambertian.cc
+    src/materials/metal.cc
     src/camera.cc
     src/color.cc
     src/hittable.cc

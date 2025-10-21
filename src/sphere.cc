@@ -47,9 +47,9 @@ bool Sphere::Hit(const Ray &r, Interval ray_t, HitRecord &rec) const {
 
     rec.t_ = root;
     rec.p_ = r.At(rec.t_);
-
     Vec3 outward_normal = (rec.p_ - Sphere::center_) / Sphere::radius_;
     rec.SetFaceNormal(r, outward_normal);
+    rec.mat_ = Sphere::mat_;
 
     return true;
 }

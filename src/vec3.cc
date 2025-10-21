@@ -122,3 +122,8 @@ Vec3 RandomOnHemisphere(const Vec3 &normal) {
         return -on_unit_sphere;
     }
 }
+
+// Reflection of a ray v given a surface normal n is given by the equation
+// below.
+// Negative since we want this to project out of the surface.
+Vec3 Reflect(const Vec3 &v, const Vec3 &n) { return v - 2 * Dot(v, n) * n; }

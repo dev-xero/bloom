@@ -5,7 +5,6 @@
 #include "hittable.hpp"
 #include "material.hpp"
 #include "ray.hpp"
-#include "vec3.hpp"
 
 class Lambertian : public Material {
   public:
