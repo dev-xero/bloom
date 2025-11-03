@@ -4,11 +4,11 @@
 double Interval::Size() const { return max_ - min_; }
 
 double Interval::Clamp(double x) const {
-    if (x < min_)
-        return min_;
-    if (x > max_)
-        return max_;
-    return x;
+  if (x < min_)
+    return min_;
+  if (x > max_)
+    return max_;
+  return x;
 }
 
 bool Interval::Contains(double x) const { return min_ <= x && x <= max_; }

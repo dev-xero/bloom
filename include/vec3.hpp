@@ -5,31 +5,31 @@
 #include <iostream>
 
 class Vec3 {
-  public:
-    double elements[3];
+public:
+  double elements[3];
 
-    Vec3() : elements{0, 0, 0} {}
-    Vec3(double e0, double e1, double e2) : elements{e0, e1, e2} {}
+  Vec3() : elements{0, 0, 0} {}
+  Vec3(double e0, double e1, double e2) : elements{e0, e1, e2} {}
 
-    double x() const { return elements[0]; }
-    double y() const { return elements[1]; }
-    double z() const { return elements[2]; }
+  double x() const { return elements[0]; }
+  double y() const { return elements[1]; }
+  double z() const { return elements[2]; }
 
-    double operator[](int i) const { return elements[i]; }
-    double &operator[](int i) { return elements[i]; }
+  double operator[](int i) const { return elements[i]; }
+  double &operator[](int i) { return elements[i]; }
 
-    Vec3 operator-() const;
-    Vec3 &operator+=(const Vec3 &vector);
-    Vec3 &operator*=(const Vec3 &vector);
-    Vec3 &operator*=(double k);
-    Vec3 &operator/=(double k);
+  Vec3 operator-() const;
+  Vec3 &operator+=(const Vec3 &vector);
+  Vec3 &operator*=(const Vec3 &vector);
+  Vec3 &operator*=(double k);
+  Vec3 &operator/=(double k);
 
-    double Length() const;
-    double LengthSquared() const;
-    bool NearZero() const;
+  double Length() const;
+  double LengthSquared() const;
+  bool NearZero() const;
 
-    static Vec3 Random();
-    static Vec3 Random(double min, double max);
+  static Vec3 Random();
+  static Vec3 Random(double min, double max);
 };
 
 using Point3 = Vec3;

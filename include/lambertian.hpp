@@ -7,14 +7,14 @@
 #include "ray.hpp"
 
 class Lambertian : public Material {
-  public:
-    Lambertian(const Color &albedo) : albedo_(albedo) {}
+public:
+  Lambertian(const Color &albedo) : albedo_(albedo) {}
 
-    bool Scatter(const Ray &ray_in, const HitRecord &rec, Color &attenuation,
-                 Ray &scattered) const override;
+  bool Scatter(const Ray &ray_in, const HitRecord &rec, Color &attenuation,
+               Ray &scattered) const override;
 
-  private:
-    Color albedo_;
+private:
+  Color albedo_;
 };
 
 #endif
