@@ -49,5 +49,6 @@ Vec3 Unit(const Vec3 &v);
 Vec3 RandomUnitVector();
 Vec3 RandomOnHemisphere(const Vec3 &normal);
 Vec3 Reflect(const Vec3 &v, const Vec3 &n);
+Vec3 Refract(const Vec3 &uv, const Vec3 &n, double etai_over_etat);
 
 #endif

@@ -118,3 +118,11 @@ Vec3 RandomOnHemisphere(const Vec3 &normal) {
 // Reflection of a ray v given a surface normal n is given by the equation below.
 // Negative since we want this to project out of the surface.
 Vec3 Reflect(const Vec3 &v, const Vec3 &n) { return v - 2 * Dot(v, n) * n; }
+
+// Refractive Indices
+Vec3 Refract(const Vec3 &uv, const Vec3 &n, double etai_over_etat) {
+    auto cos_theta = std::fmin(Dot(-uv, n), 1.0);
+    Vec3 r_out_perp = etai_over_etat * (uv + cos_theta * n);
+    Vec3 r_out_parallel = -std::sqrt(std::fabs(1.0 - r_out_perp.LengthSquared())) * n;
+    return r_out_perp + r_out_parallel;
+}
