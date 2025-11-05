@@ -1,3 +1,4 @@
+#include "ray.hpp"
 #include "hittable_list.hpp"
 #include "hittable.hpp"
 #include "interval.hpp"

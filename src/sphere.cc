@@ -1,3 +1,5 @@
+#include <cmath>
+
 #include "sphere.hpp"
 #include "hittable.hpp"
 #include "interval.hpp"

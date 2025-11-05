@@ -1,4 +1,5 @@
 #include <ostream>
+#include <cmath>
 
 #include "color.hpp"
 #include "interval.hpp"
