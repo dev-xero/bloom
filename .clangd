@@ -1,3 +1,8 @@
 CompileFlags:
   Add:
-    - "--include-directory=/include"
+    - "-I/include"
+    - "--std=c++20"
+
+Diagnostics:
+    MissingIncludes: Strict
+    UnusedIncludes: Strict

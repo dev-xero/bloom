@@ -1,6 +1,7 @@
 #ifndef METAL_H
 #define METAL_H
 
+#include "ray.hpp"
 #include "color.hpp"
 #include "hittable.hpp"
 #include "material.hpp"

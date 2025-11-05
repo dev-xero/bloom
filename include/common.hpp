@@ -1,7 +1,6 @@
 #ifndef COMMON_HPP
 #define COMMON_HPP
 
-#include <cmath>
 #include <cstdlib>
 #include <limits>
 #include <memory>

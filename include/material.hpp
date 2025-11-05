@@ -1,6 +1,7 @@
 #ifndef MATERIAL_HPP
 #define MATERIAL_HPP
 
+#include "ray.hpp"
 #include "color.hpp"
 #include "hittable.hpp"
 

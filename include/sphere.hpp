@@ -1,6 +1,9 @@
 #ifndef SPHERE_HPP
 #define SPHERE_HPP
 
+#include <cmath>
+
+#include "common.hpp"
 #include "hittable.hpp"
 #include "interval.hpp"
 #include "ray.hpp"

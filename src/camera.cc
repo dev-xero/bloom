@@ -2,7 +2,6 @@
 #include "color.hpp"
 #include "common.hpp"
 #include "hittable.hpp"
-#include "material.hpp"
 #include "vec3.hpp"
 
 void Camera::Initialize() {
@@ -80,7 +79,8 @@ Color Camera::RayColor(const Ray &r, int depth, const Hittable &world) const {
 void Camera::Render(const Hittable &world) {
   Camera::Initialize();
 
-  std::clog << "Rendering begun." << "\n";
+  std::clog << "Rendering begun."
+            << "\n";
 
   std::cout << "P3\n"
             << Camera::image_w_ << " " << Camera::image_h_ << "\n255\n";
@@ -99,5 +99,6 @@ void Camera::Render(const Hittable &world) {
   }
 
   std::string spaces(50, ' ');
-  std::clog << "\r" << "Done." << spaces << "\n";
+  std::clog << "\r"
+            << "Done." << spaces << "\n";
 }

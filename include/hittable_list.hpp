@@ -1,10 +1,12 @@
 #ifndef HITTABLE_LIST_HPP
 #define HITTABLE_LIST_HPP
 
+#include <vector>
+
+#include "ray.hpp"
 #include "common.hpp"
 #include "hittable.hpp"
 #include "interval.hpp"
-#include <vector>
 
 class Hittable_list : public Hittable {
   public:
