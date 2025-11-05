@@ -1,3 +1,6 @@
+#include "vec3.hpp"
+#include "ray.hpp"
+#include "hittable.hpp"
 #include "lambertian.hpp"
 
 bool Lambertian::Scatter(const Ray &ray_in, const HitRecord &rec, Color &attenuation,

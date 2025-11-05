@@ -1,4 +1,7 @@
+#include "vec3.hpp"
+#include "hittable.hpp"
 #include "metal.hpp"
+#include "ray.hpp"
 #include "vec3.hpp"
 
 bool Metal::Scatter(const Ray &r_in, const HitRecord &rec, Color &attenuation,
