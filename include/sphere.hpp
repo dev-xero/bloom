@@ -10,16 +10,16 @@
 #include "vec3.hpp"
 
 class Sphere : public Hittable {
-public:
-  Sphere(const Point3 &center, double radius, shared_ptr<Material> mat)
-      : center_(center), radius_(std::fmax(0, radius)), mat_(mat) {}
+  public:
+    Sphere(const Point3 &center, double radius, shared_ptr<Material> mat)
+        : center_(center), radius_(std::fmax(0, radius)), mat_(mat) {}
 
-  bool Hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
+    bool Hit(const Ray &r, Interval ray_t, HitRecord &rec) const override;
 
-private:
-  Point3 center_;
-  double radius_;
-  shared_ptr<Material> mat_;
+  private:
+    Point3 center_;
+    double radius_;
+    shared_ptr<Material> mat_;
 };
 
 #endif

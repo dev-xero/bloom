@@ -1,10 +1,10 @@
-#include "vec3.hpp"
-#include "ray.hpp"
-#include "hittable.hpp"
 #include "lambertian.hpp"
+#include "color.hpp"
+#include "hittable.hpp"
+#include "ray.hpp"
+#include "vec3.hpp"
 
-bool Lambertian::Scatter(const Ray &ray_in, const HitRecord &rec, Color &attenuation,
-                         Ray &scattered) const {
+bool Lambertian::Scatter(const Ray &ray_in, const HitRecord &rec, Color &attenuation, Ray &scattered) const {
     auto scatter_direction = rec.normal_ + RandomUnitVector();
     // Catch degenerate scatter direction
     if (scatter_direction.NearZero()) {

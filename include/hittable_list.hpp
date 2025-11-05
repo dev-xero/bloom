@@ -3,10 +3,10 @@
 
 #include <vector>
 
-#include "ray.hpp"
 #include "common.hpp"
 #include "hittable.hpp"
 #include "interval.hpp"
+#include "ray.hpp"
 
 class Hittable_list : public Hittable {
   public:
